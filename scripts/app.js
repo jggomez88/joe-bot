@@ -11,7 +11,7 @@
 //
 
 module.exports = function(bot) {
-  bot.hear(/hello/, function(res) {
+  bot.hear(/hi joebot/, function(res) {
     return res.send("Fuck you");
   });
   bot.respond(/office hours?/, function(res) {

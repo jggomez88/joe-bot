@@ -12,36 +12,36 @@
 
 module.exports = function(bot) {
   bot.hear(/hi joebot/, function(res) {
-    return res.send("Fuck you");
+    return res.send(`Fuck you, I was sleeping. Ask me about "class/info" or "office hours".`);
   });
   bot.respond(/office hours?/, function(res) {
     return res.send("Tues & Thurs 7:00pm - 8:00 pm && Sun 4:00pm - 6:00pm");
   });
-  bot.respond(/class\/ (.*)/, function(msg) {
+  bot.respond(/class\/(.*)/, function(msg) {
     var info;
     info = msg.match[1];
     console.log(info);
     switch (info) {
       case "info":
-        return msg.reply(`Request class/ + "website", "zoom", "password", or "exit ticket"`);
+        return msg.reply(`Use class/ + "website", "zoom", "password", or "exit ticket"`);
         break;
       case "password":
-        return msg.reply('go_js18_go');
+        return msg.reply(`Here's the password: \ngo_js18_go`);
         break;
       case "website":
-        return msg.reply("https://pages.git.generalassemb.ly/romebell/js18/pages/slackbot.html");
+        return msg.reply(`Here's the website: \nhttps://pages.git.generalassemb.ly/romebell/js18/pages/slackbot.html`);
         break;
       case "zoom":
-        return msg.reply("https://generalassembly.zoom.us/j/475366947");
+        return msg.reply(`Here's the zoom link: \nhttps://generalassembly.zoom.us/j/475366947`);
         break;
       case "exit ticket":
-        return msg.reply("https://forms.gle/x61cyVQMArx4GdjA6");
+        return msg.reply(`Here's the exit ticket: \nhttps://forms.gle/x61cyVQMArx4GdjA6`);
         break;
       case "homework":
-        return msg.reply("https://pages.git.generalassemb.ly/romebell/js18/pages/homework.html");
+        return msg.reply(`Do you're homework: \nhttps://pages.git.generalassemb.ly/romebell/js18/pages/homework.html`);
         break;
       default:
-        return msg.reply(`Request class/ + "website", "zoom", "password", or "exit ticket"`);
+        return msg.reply(`Use class/ + "website", "zoom", "password", or "exit ticket"`);
     }
   });
   

@@ -17,13 +17,13 @@ module.exports = function(bot) {
   bot.respond(/office hours?/, function(res) {
     return res.send("Tues & Thurs 7:00pm - 8:00 pm && Sun 4:00pm - 6:00pm");
   });
-  bot.respond(/class (.*)/, function(msg) {
+  bot.respond(/class\/ (.*)/, function(msg) {
     var info;
     info = msg.match[1];
     console.log(info);
     switch (info) {
       case "info":
-        return msg.reply(`Request "class" + "website", "zoom", password, or "exit ticket"`);
+        return msg.reply(`Request class/ + "website", "zoom", "password", or "exit ticket"`);
         break;
       case "password":
         return msg.reply('go_js18_go');
@@ -41,7 +41,7 @@ module.exports = function(bot) {
         return msg.reply("https://pages.git.generalassemb.ly/romebell/js18/pages/homework.html");
         break;
       default:
-        return msg.reply(`Request "class" + "website", "zoom", password, or "exit ticket"`);
+        return msg.reply(`Request class/ + "website", "zoom", "password", or "exit ticket"`);
     }
   });
   

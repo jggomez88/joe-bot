@@ -23,7 +23,10 @@ module.exports = function(bot) {
     console.log(info);
     switch (info) {
       case "info":
-        return msg.reply(`Request "class" + "website", "zoom", or "exit ticket"`);
+        return msg.reply(`Request "class" + "website", "zoom", password, or "exit ticket"`);
+        break;
+      case "password":
+        return msg.reply('go_js18_go');
         break;
       case "website":
         return msg.reply("https://pages.git.generalassemb.ly/romebell/js18/pages/slackbot.html");
@@ -38,7 +41,7 @@ module.exports = function(bot) {
         return msg.reply("https://pages.git.generalassemb.ly/romebell/js18/pages/homework.html");
         break;
       default:
-        return msg.reply(`Request "class" + "website", "zoom", or "exit ticket"`);
+        return msg.reply(`Request "class" + "website", "zoom", password, or "exit ticket"`);
     }
   });
   

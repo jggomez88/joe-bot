@@ -22,6 +22,9 @@ module.exports = function(bot) {
     info = msg.match[1];
     console.log(info);
     switch (info) {
+      case "info":
+        return msg.reply(`Request "website", "zoom", or "exit ticket"`);
+        break;
       case "website":
         return msg.reply("https://pages.git.generalassemb.ly/romebell/js18/pages/slackbot.html");
         break;

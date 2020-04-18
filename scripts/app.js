@@ -14,7 +14,7 @@ module.exports = function(bot) {
   let jokeArray = ['',''];
 
   bot.hear(/hi joebot/, function(res) {
-    return res.send(`Fuck you, I was sleeping. Ask me for "class/info" or "office-hours" or "joke".`);
+    return res.send(`Fuck you, I was sleeping. Ask me "class/info" or "office-hours" or "joke".`);
   });
   bot.respond(/office-hours?/, function(res) {
     return res.send("Tues & Thurs 7:00pm - 8:00 pm && Sun 4:00pm - 6:00pm");
@@ -39,6 +39,24 @@ module.exports = function(bot) {
       res.send(jokeArray[1]);
     }
   });
+
+  bot.hear(/\*Submit (.*)/, function(res) {
+    let joke;
+    joke = res.match[1];
+
+    joke = JSON.stringify(joke);
+
+    try {
+      joke = JSON.parse(joke);
+
+    } catch (error) {
+      res.send(error);
+    }
+
+    submitJoke(joke);
+    return res.send(`Thanks. It better be funny.`);
+  });
+
   bot.respond(/class\/(.*)/, function(msg) {
     var info;
     info = msg.match[1];
@@ -96,12 +114,21 @@ module.exports = function(bot) {
     }
   ]
 
+  
+  // Submit joke example
+
+  // `{
+  //   "yourName": 'your name',
+  //   "type": 'clean or dirty',
+  //   "intro": 'intro',
+  //   "punch": 'the punchline',
+  //   "id": 'unique id to reference your joke'
+  // }`
+
   let cleanCount = 0
   let dirtyCount = 0
 
   const tellJoke = (jokeType) => {
-    // cleanCount ? cleanCount: cleanCount = 0;
-    // dirtyCount.length ? dirtyCount: dirtyCount = 0
 
     cleanCount === cleanJokes.length ? cleanCount = 0 : cleanCount;
     dirtyCount === dirtyJokes.length ? dirtyCount = 0 : dirtyCount;
@@ -120,6 +147,18 @@ module.exports = function(bot) {
 
       jokeArray.splice(0,2,intro,punch);
       dirtyCount++
+    }
+  }
+
+  const submitJoke = (joke) => {
+    if (joke.type === 'clean') {
+      cleanJokes.push(joke);
+      cleanCount = 0;
+    }
+
+    if (joke.type === 'dirty') {
+      dirtyJokes.unshift(joke);
+      dirtyCount = 0;
     }
   }
   

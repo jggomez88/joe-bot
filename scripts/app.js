@@ -20,22 +20,22 @@ module.exports = function(bot) {
     return res.send("Tues & Thurs 7:00pm - 8:00 pm && Sun 4:00pm - 6:00pm");
   });
   bot.respond(/joke?/, function(msg) {
-    return msg.reply(`/Clean or /Dirty?`);
+    return msg.reply(`*Clean or *Dirty?`);
   });
-  bot.hear(/\/(.*)/, function(res) {
+  bot.hear(/\*(.*)/, function(res) {
     let type;
     type = res.match[1];
     if (type === 'Clean') {
       tellJoke('clean');
       res.send(jokeArray[0]);
-      res.send('use /answer')
+      res.send('use *Answer')
     }
     if (type === 'Dirty') {
       tellJoke('dirty');
       res.send(jokeArray[0]);
-      res.send('use /answer')
+      res.send('use *Answer')
     }
-    if (type === 'answer') {
+    if (type === 'Answer') {
       res.send(jokeArray[1]);
     }
   });

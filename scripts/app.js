@@ -14,7 +14,7 @@ module.exports = function(bot) {
   let jokeArray = ['',''];
 
   bot.hear(/hi joebot/, function(res) {
-    return res.send(`Fuck you, I was sleeping. Ask me "class/info" or "office-hours" or "joke".`);
+    return res.send(`Fuck you, I was sleeping. Ask me "class/info" or "office-hours" or "joke" or "submit-joke".`);
   });
   bot.respond(/office-hours?/, function(res) {
     return res.send("Tues & Thurs 7:00pm - 8:00 pm && Sun 4:00pm - 6:00pm");
@@ -39,8 +39,18 @@ module.exports = function(bot) {
       res.send(jokeArray[1]);
     }
   });
-
-  bot.hear(/\*Submit (.*)/, function(res) {
+  bot.hear(/submit-joke/, function(res) {
+    return res.send(`Use *newJoke {
+        author: 'your name',
+        type: 'clean OR dirty',
+        intro: 'eg Why did the chicken cross the road?',
+        punch: 'eg To get to the other side.',
+        id: 'unique id to reference your joke'
+      }
+      \n Submit joke in an object literal. The "type", "intro", and "punch" fields are required.`
+      );
+  });
+  bot.hear(/\*newJoke (.*)/, function(res) {
     let joke;
     joke = res.match[1];
 
@@ -50,11 +60,27 @@ module.exports = function(bot) {
       joke = JSON.parse(joke);
 
     } catch (error) {
-      res.send(error);
+      return res.send(error);
     }
 
-    submitJoke(joke);
-    return res.send(`Thanks. It better be funny.`);
+    if (!joke.intro) {
+      res.send(`Your joke needs an intro eg intro: "Why did the chicken cross the road.`)
+    }
+
+    if (!joke.punch) {
+      res.send("Your joke needs a punch-line eg punch: 'To get to the other side.'")
+    }
+
+    if (!joke.type || joke.type != 'clean' || joke.type != 'dirty') {
+      res.send("Your joke needs a type: 'clean' OR 'dirty'.")
+    }
+
+    if (joke.type && joke.punch && joke.intro) {
+      submitJoke(joke);
+      return res.send(`Thanks. It better be funny.`);
+    } else {
+      return res.send(`Joke not submitted. Jobot disappointed.`)
+    }
   });
 
   bot.respond(/class\/(.*)/, function(msg) {
